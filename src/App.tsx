@@ -1,21 +1,39 @@
 import React, {MouseEvent, useState} from 'react';
-import {Difficulty, fetchQuizQuestions} from "./API";
+import {Difficulty, fetchQuizQuestions, QuestionState} from "./API";
 
 
 const TOTAL_QUESTIONS = 10;
 
+type AnswerObject = {
+    question: string;
+    answer: string;
+    correct: boolean;
+    correctAnswer: string;
+}
+
 const App = () => {
     const [loading, setLoading] = useState(false);
-    const [questions, setQuestions ] = useState([]);
+    const [questions, setQuestions] = useState<QuestionState[]>([]);
     const [number, setNumber] = useState(0);
-    const [userAnswers, setUserAnswers] = useState([]);
+    const [userAnswers, setUserAnswers] = useState<AnswerObject[]>([]);
     const [score, setScore] = useState(0);
     const [quizOver, setQuizOver] = useState(true);
 
-    fetchQuizQuestions(TOTAL_QUESTIONS,Difficulty.EASE)
 
     const startQuiz = async () => {
+        setLoading(true);
+        setQuizOver(false);
 
+        const newQuestions = await fetchQuizQuestions(
+            TOTAL_QUESTIONS,
+            Difficulty.EASE
+        );
+
+        setQuestions(newQuestions);
+        setScore(0);
+        setUserAnswers([]);
+        setNumber(0);
+        setLoading(false);
     }
 
     const checkAnswer = (e: MouseEvent<HTMLButtonElement>) => {
@@ -29,12 +47,13 @@ const App = () => {
     return (
         <div className="App">
             <h1>QUIZ APPLICATION</h1>
-            <button
-                className={'start'}
-                onClick={startQuiz}
-            >
-                Start
-            </button>
+            {quizOver || userAnswers.length === TOTAL_QUESTIONS ? (
+                <button
+                    className={'start'}
+                    onClick={startQuiz}>
+                    Start
+                </button>
+            ) : null}
             <p className={'score'}>Score:</p>
             <p>Loading Questions ...</p>
             {/*<QuestionCard*/}
