@@ -1,7 +1,14 @@
-import React, {MouseEvent} from 'react';
+import React, {MouseEvent, useState} from 'react';
 import QuestionCard from "./components/QuestionCard";
 
 const App = () => {
+    const [loading, setLoading] = useState(false);
+    const [questions, setQuestions ] = useState([]);
+    const [number, setNumber] = useState(0);
+    const [userAnswers, setUserAnswers] = useState([]);
+    const [score, setScore] = useState(0);
+    const [quizOver, setQuizOver] = useState(true);
+
     const startQuiz = async () => {
 
     }
