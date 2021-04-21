@@ -4,7 +4,7 @@ type questionCardProps = {
     question: string;
     answers: string[];
     callback: any;
-    userAnswer: boolean;
+    userAnswer: any;
     questionNumber: number;
     totalQuestions: number;
 }
