@@ -1,5 +1,6 @@
 import React, {MouseEvent, useState} from 'react';
 import {Difficulty, fetchQuizQuestions, QuestionState} from "./API";
+import QuestionCard from "./components/QuestionCard";
 
 
 const TOTAL_QUESTIONS = 10;
@@ -56,17 +57,22 @@ const App = () => {
             ) : null}
             {!quizOver && <p className={'score'}>Score:</p>}
             {loading && <p>Loading Questions ...</p>}
-            {/*<QuestionCard*/}
-            {/*    questionNumber={number + 1}*/}
-            {/*    totalQuestions={TOTAL_QUESTIONS}*/}
-            {/*    question={questions[number].question}*/}
-            {/*    answers={questions[number].answers}*/}
-            {/*    userAnswer={userAnswers ? userAnswers[number] : undefined}*/}
-            {/*    callback={checkAnswer}*/}
-            {/*/>*/}
-            <button className={'next'} onClick={nextQuestion}>
-                Next Question
-            </button>
+            {(!loading && !quizOver) && (
+                <QuestionCard
+                    questionNumber={number + 1}
+                    totalQuestions={TOTAL_QUESTIONS}
+                    question={questions[number].question}
+                    answers={questions[number].answers}
+                    userAnswer={userAnswers ? userAnswers[number] : undefined}
+                    callback={checkAnswer}
+                />
+            )}
+            {!quizOver && !loading && userAnswers.length === number + 1 && number !== TOTAL_QUESTIONS - 1 ? (
+                <button className={'next'} onClick={nextQuestion}>
+                    Next Question
+                </button>
+            ): null}
+
         </div>
     );
 }
