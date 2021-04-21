@@ -55,7 +55,7 @@ const App = () => {
                 </button>
             ) : null}
             {!quizOver ? <p className={'score'}>Score:</p> : null}
-            <p>Loading Questions ...</p>
+            {loading ? <p>Loading Questions ...</p> : null}
             {/*<QuestionCard*/}
             {/*    questionNumber={number + 1}*/}
             {/*    totalQuestions={TOTAL_QUESTIONS}*/}
