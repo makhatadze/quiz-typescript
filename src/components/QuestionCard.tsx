@@ -1,9 +1,9 @@
-import React, {FC} from "react";
+import React, {FC, MouseEvent} from "react";
 
 type questionCardProps = {
     question: string;
     answers: string[];
-    callback: any;
+    callback: (e: MouseEvent<HTMLButtonElement>) => void;
     userAnswer: any;
     questionNumber: number;
     totalQuestions: number;
