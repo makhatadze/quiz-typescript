@@ -25,9 +25,10 @@ const QuestionCard: FC<questionCardProps> = (
         <p dangerouslySetInnerHTML={{__html: question}}/>
         <div>
             {answers.map(answer => (
-                <div>
+                <div key={answer}>
                     <button
                         disabled={userAnswer}
+                        value={answer}
                         onClick={callback}>
                         <span dangerouslySetInnerHTML={{__html: answer}}/>
                     </button>
